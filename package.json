@@ -1,0 +1,89 @@
+{
+  "name": "spadille",
+  "version": "0.0.1",
+  "description": "Verifiable/deterministic fair tickets generation for lotteries, raffles and gambling games.",
+  "main": "build/spadille/index.js",
+  "browser": "dist/index.js",
+  "scripts": {
+    "build:back": "babel src -d build --minified --compact",
+    "build": "yarn run build:back && yarn run build:front",
+    "build:front": "rollup -c --environment INCLUDE_DEPS,BUILD:production",
+    "lint": "standard --verbose",
+    "pretest": "yarn run lint && yarn run build",
+    "test:back": "LIB_DIR=build/spadille jest --verbose",
+    "test:front": "LIB_DIR=dist/index.js BROWSER_ENV=1 jest --verbose",
+    "test": "yarn run test:back && yarn run test:front",
+    "precoverage": "yarn run test",
+    "coverage": "LIB_DIR=src/spadille jest --coverage",
+    "prereport": "yarn run coverage",
+    "report": "cat coverage/lcov.info | coveralls",
+    "jekyll:setup": "cd docs && bundle install --path vendor/bundle && cd ..",
+    "jekyll:build": "cp README.md docs/index.md",
+    "prejekyll:serve": "yarn run jekyll:build",
+    "jekyll:serve": "cd docs && bundle exec jekyll serve && cd ..",
+    "prepublish": "yarn run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcoonroad/spadille.git"
+  },
+  "keywords": [
+    "gambling",
+    "lotteries",
+    "raffles",
+    "cryptography",
+    "hmac",
+    "hashing",
+    "randomness",
+    "rng",
+    "prng"
+  ],
+  "author": "Marco Aurélio da Silva (marcoonroad@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marcoonroad/spadille/issues"
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "./node_modules/",
+      "./support/",
+      "./TRASH/"
+    ],
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/support/**",
+      "!**/dist/**",
+      "!**/build/**",
+      "!**/docs/**",
+      "!**/coverage/**",
+      "!**/rollup.config.js"
+    ]
+  },
+  "standard": {
+    "ignore": [
+      "dist/",
+      "build/",
+      "node_modules/"
+    ],
+    "parser": "babel-eslint"
+  },
+  "homepage": "https://github.com/marcoonroad/spadille#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-latest": "^6.24.1",
+    "coveralls": "^3.0.2",
+    "jest": "^23.6.0",
+    "jsdom": "^13.2.0",
+    "rollup": "^1.1.2",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-terser": "^4.0.4",
+    "standard": "^12.0.1"
+  }
+}
