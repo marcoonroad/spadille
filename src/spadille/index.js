@@ -37,7 +37,7 @@ const randomLimit = function (limit) {
 };
 
 const generate = async function (seed, limit, balls) {
-  if (balls > limit) {
+  if (balls >= limit) {
     throw Error('The number of balls must be lower than the limit of RNG!');
   }
 
