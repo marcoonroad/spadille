@@ -1,5 +1,6 @@
 /* eslint-env node */
-/* eslint semi: off */
+/* eslint
+  semi: off */
 
 module.exports.init = function () {
   const crypto = require('crypto');

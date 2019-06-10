@@ -1,5 +1,6 @@
 /* eslint-env browser */
-/* eslint semi: off */
+/* eslint
+  semi: off */
 
 module.exports.init = function () {
   const crypto = window.crypto.subtle;

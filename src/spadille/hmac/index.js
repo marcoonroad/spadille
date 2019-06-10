@@ -1,5 +1,6 @@
-/* eslint-env node, browser */
-/* eslint semi: off */
+/* eslint-env node */
+/* eslint
+  semi: off */
 
 let hmac = null;
 

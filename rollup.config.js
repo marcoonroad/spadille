@@ -13,12 +13,12 @@ module.exports = {
     compact: true,
     exports: 'named',
     globals: {
-      'crypto': 'crypto',
-    },
+      'crypto': 'crypto'
+    }
   },
   external: ['crypto'],
   plugins: [
-    builtins({ crypto: true, }),
+    builtins({ crypto: true }),
     globals(),
     nodeResolve({
       module: true,
