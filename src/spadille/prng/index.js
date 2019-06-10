@@ -6,6 +6,7 @@ const hmac = require('../hmac');
 const {
   fromHex,
   makeRandomGen,
+  option,
   splitInPieces
 } = require('../utils');
 
@@ -19,10 +20,10 @@ const generate = async function (options) {
     distinct
   } = options;
 
-  minimum = minimum || 1;
-  maximum = maximum || 60;
-  amount = amount || 6;
-  distinct = distinct || true;
+  minimum = option(minimum, 1);
+  maximum = option(maximum, 60);
+  amount = option(amount, 6);
+  distinct = option(distinct, true);
 
   if (distinct && amount >= maximum) {
     throw Error(

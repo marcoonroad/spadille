@@ -33,7 +33,17 @@ const makeRandomGen = function (minimum, maximum) {
   };
 };
 
+const missing = function (value) {
+  return value === undefined || value === null;
+};
+
+const option = function (value, defaultValue) {
+  return missing(value) ? defaultValue : value;
+};
+
 module.exports.cycle = cycle;
 module.exports.splitInPieces = splitInPieces;
 module.exports.fromHex = fromHex;
 module.exports.makeRandomGen = makeRandomGen;
+module.exports.missing = missing;
+module.exports.option = option;
