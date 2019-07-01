@@ -32,13 +32,14 @@ const generate = async function (options) {
   }
 
   const seed = await hmac.sign(secret, payload);
-  const parts = splitInPieces(seed, amount);
+  const parts = await splitInPieces(seed, amount);
   const randomGen = makeRandomGen(minimum, maximum);
 
   const additional = randomGen(fromHex(parts.rest));
 
   parts.pieces = parts.pieces
     .map(fromHex)
+    .map(Math.abs)
     .map(randomGen)
     .map(function (number) { return number + additional; })
     .map(randomGen);

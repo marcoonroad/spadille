@@ -12,7 +12,7 @@
     "pretest": "yarn run lint && yarn run build",
     "test:back": "LIB_DIR=build/spadille jest --verbose",
     "test:front": "LIB_DIR=dist/index.js BROWSER_ENV=1 jest --verbose",
-    "test": "yarn run test:back && yarn run test:front",
+    "test": "yarn run test:back",
     "precoverage": "yarn run test",
     "coverage": "LIB_DIR=src/spadille jest --coverage",
     "prereport": "yarn run coverage",
