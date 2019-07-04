@@ -11,7 +11,7 @@ const SECRET = 'OH NO!'
 beforeAll(support.setup)
 
 it('should generate a mega sena sequence', async function () {
-  expect.assertions(20)
+  expect.assertions(21)
 
   const payload = cuid()
 
@@ -29,6 +29,7 @@ it('should generate a mega sena sequence', async function () {
   });
 
   expect(sequence.length).toBe(Object.keys(uniqueness).length)
+  expect(sequence.length).toBe(6)
 
   const sequenceCopy = await support.call(function (secret, payload) {
     return this.lottery.brazillian.megaSena(secret, payload)
