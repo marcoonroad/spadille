@@ -5,21 +5,33 @@
 'use strict'
 
 const cuid = require('cuid')
-const support = require('../support')
-const secret = 'OH YES!'
+let support = require('../support')
+const SECRET = 'OH YES!'
+
+/*
+beforeAll(async function () {
+  support.spadille = await support.spadille()
+  return true
+})
+*/
+
+beforeAll(support.setup)
 
 it('should generate arbitrary/huge luck numbers', async function () {
   expect.assertions(1501)
+
   const payload = cuid()
 
-  const sequence = await support.spadille.prng.generate({
-    secret,
-    payload,
-    minimum: 30,
-    maximum: 9000,
-    amount: 500,
-    distinct: false
-  })
+  const sequence = await support.call(function (secret, payload) {
+    return this.prng.generate({
+      secret,
+      payload,
+      minimum: 30,
+      maximum: 9000,
+      amount: 500,
+      distinct: false
+    })
+  }, SECRET, payload)
 
   sequence.forEach(function (number) {
     expect(number).toBeGreaterThanOrEqual(30)

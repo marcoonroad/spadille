@@ -5,15 +5,29 @@
 'use strict'
 
 const cuid = require('cuid')
-const support = require('../support')
-const { brazillian } = support.spadille.lottery
-const secret = 'OH NO!'
+let support = require('../support')
+// let brazillian = null
+// const { brazillian } = support.spadille.lottery
+const SECRET = 'OH NO!'
+
+/*
+beforeAll(async function () {
+  support.spadille = await support.spadille()
+  brazillian = support.spadille.lottery.brazillian
+  return true
+})
+*/
+
+beforeAll(support.setup)
 
 it('should generate a mega sena sequence', async function () {
   expect.assertions(20)
 
   const payload = cuid()
-  const sequence = await brazillian.megaSena(secret, payload)
+
+  const sequence = await support.call(function (secret, payload) {
+    return this.lottery.brazillian.megaSena(secret, payload)
+  }, SECRET, payload)
 
   const uniqueness = {}
 
@@ -26,7 +40,10 @@ it('should generate a mega sena sequence', async function () {
 
   expect(sequence.length).toBe(Object.keys(uniqueness).length)
 
-  const sequenceCopy = await brazillian.megaSena(secret, payload)
+  const sequenceCopy = await support.call(function (secret, payload) {
+    return this.lottery.brazillian.megaSena(secret, payload)
+  }, SECRET, payload)
+
   expect(sequenceCopy).toStrictEqual(sequence)
 })
 
@@ -34,8 +51,14 @@ it('should generate a federal sequence', async function () {
   expect.assertions(17)
 
   const payload = cuid()
-  const sequence = await brazillian.federal(secret, payload)
-  const sequenceCopy = await brazillian.federal(secret, payload)
+
+  const sequence = await support.call(function (secret, payload) {
+    return this.lottery.brazillian.federal(secret, payload)
+  }, SECRET, payload)
+
+  const sequenceCopy = await support.call(function (secret, payload) {
+    return this.lottery.brazillian.federal(secret, payload)
+  }, SECRET, payload)
 
   expect(sequenceCopy).toStrictEqual(sequence)
   expect(sequence.length).toBe(5)
