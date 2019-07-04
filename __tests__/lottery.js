@@ -6,17 +6,7 @@
 
 const cuid = require('cuid')
 let support = require('../support')
-// let brazillian = null
-// const { brazillian } = support.spadille.lottery
 const SECRET = 'OH NO!'
-
-/*
-beforeAll(async function () {
-  support.spadille = await support.spadille()
-  brazillian = support.spadille.lottery.brazillian
-  return true
-})
-*/
 
 beforeAll(support.setup)
 

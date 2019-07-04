@@ -8,13 +8,6 @@ const cuid = require('cuid')
 let support = require('../support')
 const SECRET = 'OH YES!'
 
-/*
-beforeAll(async function () {
-  support.spadille = await support.spadille()
-  return true
-})
-*/
-
 beforeAll(support.setup)
 
 it('should generate arbitrary/huge luck numbers', async function () {
