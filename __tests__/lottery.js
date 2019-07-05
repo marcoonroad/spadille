@@ -11,7 +11,7 @@ const SECRET = 'OH NO!'
 beforeAll(support.setup)
 
 it('should generate a mega sena sequence', async function () {
-  expect.assertions(21)
+  expect.assertions(22)
 
   const payload = cuid()
 
@@ -36,6 +36,25 @@ it('should generate a mega sena sequence', async function () {
   }, SECRET, payload)
 
   expect(sequenceCopy).toStrictEqual(sequence)
+
+  const orderedSequence = sequence.sort(function (x, y) {
+    return x - y
+  })
+
+  expect(orderedSequence).toStrictEqual(sequence)
+})
+
+it('should match the fixed mega-sena sequence', async function () {
+  expect.assertions(1)
+
+  const fixedSequence = [ 1, 24, 36, 40, 48, 56 ]
+  const payload = '[fixed payload data]'
+
+  const sequence = await support.call(function (secret, payload) {
+    return this.lottery.brazillian.megaSena(secret, payload)
+  }, SECRET, payload)
+
+  expect(sequence).toStrictEqual(fixedSequence)
 })
 
 it('should generate a federal sequence', async function () {
@@ -59,4 +78,17 @@ it('should generate a federal sequence', async function () {
     expect(number).toBe(Number.parseInt(number))
     expect(number).toBeLessThanOrEqual(9)
   })
+})
+
+it('should match the fixed federal sequence', async function () {
+  expect.assertions(1)
+
+  const fixedSequence = '37751'
+  const payload = '[fixed payload data]'
+
+  const sequence = await support.call(function (secret, payload) {
+    return this.lottery.brazillian.federal(secret, payload)
+  }, SECRET, payload)
+
+  expect(sequence).toStrictEqual(fixedSequence)
 })
