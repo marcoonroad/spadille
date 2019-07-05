@@ -16,11 +16,11 @@ output. We prove that property by using HMAC-like PRNG as shown [here][2]. We ca
 the random number generation secret by a moment by just keeping the "HMAC" key secret, and
 then open/revealing that for clients during gambling/raffle output/outcome verification.
 
-In a broader context, it can be used for Secure Multi-party Computations too. This library provides
-an API cross-compatible between servers (using Node.js engine with support to `crypto` OpenSSL's
-binding) and browsers (using modern browsers supporting the `crypto.subtle` API). A good
-verification flow, thus, would be to generate such noise number sequences on server-side and then
-verifying them on client-side.
+In a broader context, it can be used for Secure Multi-party Computations too (mostly through
+Commitment Schemes). This library provides an API cross-compatible between servers (using Node.js
+engine with support to `crypto` OpenSSL's bindings) and browsers (using modern browsers supporting
+the `crypto.subtle` API). A good verification flow, thus, would be to generate such noise number
+sequences on server-side and then verifying them on client-side.
 
 
 ### Installation
@@ -29,7 +29,7 @@ If available on NPM, just type either `npm i spadille` or `yarn add spadille`. O
 you can pin this project by `npm link .` or `yarn link`, and then linking externally with
 either `npm link spadille` or `yarn link spadille`. The release/stable front-end CDN is
 available on UNPKG once the library is available on NPM beforehand. Otherwise, you can just
-grab the front-end minified code (at `dist/index.js`):
+grab the front-end minified code (at `dist/index.js`).
 
 
 ### Usage
