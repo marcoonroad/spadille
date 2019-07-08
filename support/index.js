@@ -15,15 +15,33 @@ if (process.env.BROWSER_ENV) {
   module.exports.setup = async function () {
     await page.setJavaScriptEnabled(true)
     await page.goto('file:///dev/null') // this make a "secure context" for crypto.subtle API
+    // await page.addScriptTag({ content: script })
 
     return true
   }
 
-  module.exports.call = function (closure, ...values) {
+  module.exports.call = async function (closure, ...values) {
+    /*
     const prefix = '\t' + script + ';\n\tvar block = '
-    const suffix = ';\n\treturn block.bind(spadille)(...arguments);'
-    const modifiedClosure = new Function(prefix + closure.toString() + suffix)
-    return page.evaluate(modifiedClosure, ...values)
+    const suffix = ';\n\ttry { return await block.bind(spadille)(...arguments); } catch(reason) { throw reason.message; }\n'
+    const body = '(async function () {' + prefix + closure.toString() + suffix + '})(...arguments)'
+    const modifiedClosure = `function () { return ${body}; }`
+    */
+
+    const modifiedClosure = new Function(`
+      ${script}
+      const block = (${closure.toString()});
+      return block.bind(spadille)(...arguments)
+        .catch(function (reason) {
+          throw reason.message;
+        });
+    `)
+
+    try {
+      return await page.evaluate(modifiedClosure, ...values)
+    } catch (reason) {
+      throw Error(reason)
+    }
   }
 } else {
   module.exports.setup = async function () {

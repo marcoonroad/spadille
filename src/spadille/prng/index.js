@@ -1,5 +1,6 @@
 /* eslint-env node */
 /* eslint
+  comma-dangle: off,
   semi: off */
 
 const hmac = require('../hmac');
@@ -25,9 +26,9 @@ const generate = async function (options) {
   amount = option(amount, 6);
   distinct = option(distinct, true);
 
-  if (distinct && amount >= maximum) {
+  if (distinct && amount >= (maximum - minimum)) {
     throw Error(
-      'The number of balls [amount] must be lower than the [maximum] number of RNG when [distinct] flag is on!'
+      'The number of balls [amount] must be lower than the [maximum - minimum] number of RNG when [distinct] flag is on!'
     );
   }
 
