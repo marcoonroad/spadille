@@ -1,18 +1,22 @@
+'use strict';
+
 /* eslint-env node */
 /* eslint
   semi: off */
 
+const {
+  isNode, isBrowser
+} = require('../utils/environment');
+
 let hmac = null;
 
 (function () {
-  try {
-    if (window === undefined && document === undefined) {
-      hmac = require('./node').init().hmac;
-    } else {
-      hmac = require('./browser').init().hmac;
-    }
-  } catch (_) {
+  if (isBrowser()) {
+    hmac = require('./browser').init().hmac;
+  } else if (isNode()) {
     hmac = require('./node').init().hmac;
+  } else {
+    throw Error('Could not detect execution context!');
   }
 })();
 

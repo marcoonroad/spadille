@@ -1,6 +1,4 @@
 /* eslint-env node, es6, jest */
-/* eslint
-  semi: off */
 
 'use strict'
 
@@ -40,7 +38,7 @@ it('should not enter in infinite loop while', async function () {
 
   const payload = cuid()
 
-  const sequencePromise = support.call(function (secret, payload) {
+  const failed = await support.call(function (secret, payload) {
     return this.prng.generate({
       secret,
       payload,
@@ -48,16 +46,13 @@ it('should not enter in infinite loop while', async function () {
       maximum: 10,
       amount: 5,
       distinct: true
+    }).then(function () {
+      return false
+    }).catch(function (reason) {
+      return reason.message ===
+        'The number of balls [amount] must be lower than the [maximum - minimum] number of RNG when [distinct] flag is on!'
     })
   }, SECRET, payload)
 
-  try {
-    await sequencePromise
-    throw Error('Expected to fail on promise for arbitrary sequence!')
-  } catch (reason) {
-    // we match cause the puppeteer wraps errors in a custom object
-    expect(reason.toString()).toMatch(
-      /The number of balls \[amount\] must be lower than the \[maximum - minimum\] number of RNG when \[distinct\] flag is on!/
-    )
-  }
+  expect(failed).toBe(true)
 })

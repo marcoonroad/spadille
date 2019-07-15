@@ -1,10 +1,9 @@
+'use strict'
+
 /* eslint-env node, es6, jest */
 /* eslint
-  no-new-func: off,
-  semi: off */
+  no-new-func: off  */
 /* global page */
-
-'use strict'
 
 const LIB_DIR = process.env.LIB_DIR || 'src/spadille/index.js'
 

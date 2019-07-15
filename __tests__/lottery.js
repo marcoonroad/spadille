@@ -1,6 +1,4 @@
 /* eslint-env node, es6, jest */
-/* eslint
-  semi: off */
 
 'use strict'
 
@@ -26,7 +24,7 @@ it('should generate a mega sena sequence', async function () {
     expect(number).toBe(Number.parseInt(number))
     expect(number).toBeLessThanOrEqual(60)
     uniqueness[number.toString()] = true
-  });
+  })
 
   expect(sequence.length).toBe(Object.keys(uniqueness).length)
   expect(sequence.length).toBe(6)

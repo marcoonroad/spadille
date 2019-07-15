@@ -1,8 +1,8 @@
+'use strict';
+
 /* eslint-env node, browser */
 /* eslint
   semi: off */
-
-'use strict';
 
 const hmac = require('../hmac');
 

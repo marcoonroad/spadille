@@ -1,3 +1,5 @@
+'use strict';
+
 /* eslint-env node */
 /* eslint
   semi: off */
