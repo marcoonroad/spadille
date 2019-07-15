@@ -1,29 +1,29 @@
-/* eslint
+'use strict';/* eslint
   no-new-func: off,
-  semi: off */'use strict';const isBrowser=new Function(`
+  semi: off */const isBrowser=new Function(`
   try {
-    return
+    return (
+      typeof window !== 'undefined' &&
       this === window &&
       this.window === this &&
-      ({}).toString.call(window) === '[object Window]' &&
-      window.document !== undefined &&
-      window.crypto !== undefined &&
-      window.crypto.subtle !== undefined
-    ;
+      typeof window.crypto !== 'undefined' &&
+      typeof window.crypto.subtle !== 'undefined' &&
+      ({}).toString.call(this) === '[object Window]'
+    );
   } catch (_) {
     return false;
   }
-`);const isNode=new Function(`
+`);// TODO: rethink that better later
+const isNode=new Function(`
   try {
-    return
-      this === global &&
-      ({}).toString.call(global) === '[object global]' &&
-      process !== undefined &&
-      process.env !== undefined &&
-      typeof process === 'object' &&
-      typeof module !== 'undefined' &&
-      typeof module.exports !== 'undefined'
-    ;
+    return (
+      typeof window === 'undefined' ||
+      this !== window ||
+      this.window !== this ||
+      typeof window.crypto === 'undefined' ||
+      typeof window.crypto.subtle === 'undefined' ||
+      ({}).toString.call(this) !== '[object Window]'
+    );
   } catch (_) {
     return false;
   }
