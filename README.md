@@ -66,6 +66,22 @@ the limits of 32-bits integer representation). The number of elements are config
 parameter. The `minimum` and `maximum` are point parameters for an inclusive interval (closed on
 both sides). The `distinct` is a flag to compute the sequence of unique numbers (without repetitions).
 
+There's also a helper function provided to help you to generate fresh secrets.
+By using cryptograpically secure PRNGs for both Node (through `crypto` OpenSSL
+bindings) and browsers (through the `crypto` API), we ensure a good source of
+entropy for that noise string. The output string is under binary mode, but you
+can nevertheless convert to formats/encodings such as Base-64 and Hexadecimal.
+Just pass the amount of bytes to generate and be happy with that! :)
+
+```javascript
+const amountOfBytes = 32;
+const noiseSecret = await spadille.secret.generate(amountOfBytes);
+```
+
+Remember that once you generate such secret, you should store it somewhere
+to retrieve later to "sign" the random sequences. And in the end, you should
+also publish such secret in a commitment/opening style for public verification
+by your users/clients.
 
 ### Remarks
 

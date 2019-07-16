@@ -3,7 +3,7 @@
 'use strict'
 
 const cuid = require('cuid')
-let support = require('../support')
+const support = require('../support')
 const SECRET = 'OH NO!'
 
 beforeAll(support.setup)

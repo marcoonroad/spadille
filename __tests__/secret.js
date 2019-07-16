@@ -2,7 +2,7 @@
 
 'use strict'
 
-let support = require('../support')
+const support = require('../support')
 
 beforeAll(support.setup)
 
