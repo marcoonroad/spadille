@@ -7,10 +7,10 @@
 
 const hmac = require('../hmac');
 const {
-  fromHex,
   makeRandomGen,
   option,
-  splitInPieces
+  splitInPieces,
+  computeNumber
 } = require('../utils');
 
 const generate = async function (options) {
@@ -28,44 +28,40 @@ const generate = async function (options) {
   amount = option(amount, 6);
   distinct = option(distinct, true);
 
-  if (distinct && amount >= (maximum - minimum)) {
+  if (distinct && amount > (maximum - minimum)) {
     throw Error(
-      'The number of balls [amount] must be lower than the [maximum - minimum] number of RNG when [distinct] flag is on!'
+      'The number of balls [amount] must not be greater than the [maximum - minimum] number of RNG when [distinct] flag is on!'
     );
   }
 
   const seed = await hmac.sign(secret, payload);
-  const parts = await splitInPieces(seed, amount);
   const randomGen = makeRandomGen(minimum, maximum);
 
-  const additional = randomGen(fromHex(parts.rest));
-
-  parts.pieces = parts.pieces
-    .map(fromHex)
-    .map(Math.abs)
-    .map(randomGen)
-    .map(function (number) { return number + additional; })
-    .map(randomGen);
+  const stream = await splitInPieces(seed);
+  const result = [];
 
   if (distinct) {
-    const result = [];
     const cache = {};
-    parts.pieces.forEach(function (value) {
-      let number = value;
+    let index = 0;
+    while (index < amount) {
+      const data = await stream.generate();
+      const number = computeNumber(randomGen, data);
 
-      // deduplicate
-      while (cache[number.toString()]) {
-        number = randomGen(number * additional);
+      // no detected duplicate
+      if (!cache[ number.toString() ]) {
+        cache[ number.toString() ] = true;
+        index += 1;
+        result.push(number);
       }
-
-      cache[number.toString()] = true;
-      result.push(number);
-    });
-
-    return result;
+    }
   } else {
-    return parts.pieces;
+    for (let index = 0; index < amount; index += 1) {
+      const data = await stream.generate();
+      const number = computeNumber(randomGen, data);
+      result.push(number);
+    }
   }
+  return result;
 };
 
 module.exports.generate = generate;

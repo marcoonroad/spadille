@@ -34,17 +34,21 @@ const generatePiece = async function (hash, suffix) {
   return toHex(subPieces.reduce(intXor));
 };
 
-const splitInPieces = async function (text, amount) {
-  const piecesPromises = [];
+const computeNumber = function (randomGen, data) {
+  return randomGen(Math.abs(fromHex(data)));
+};
 
-  for (let index = 0; index < amount; index += 1) {
-    piecesPromises.push(generatePiece(text, index));
-  }
+const splitInPieces = async function (text /*, amount */) {
+  const stream = {
+    index: -1,
+    text: text,
+    generate: function () {
+      this.index += 1;
+      return generatePiece(this.text, this.index);
+    }
+  };
 
-  const pieces = await Promise.all(piecesPromises);
-  const rest = '11'; // TODO: rethink that
-
-  return { pieces, rest };
+  return stream;
 };
 
 const makeRandomGen = function (minimum, maximum) {
@@ -76,3 +80,4 @@ module.exports.makeRandomGen = makeRandomGen;
 module.exports.missing = missing;
 module.exports.option = option;
 module.exports.sortArrayNumber = sortArrayNumber;
+module.exports.computeNumber = computeNumber;

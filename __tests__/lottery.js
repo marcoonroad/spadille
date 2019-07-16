@@ -45,7 +45,7 @@ it('should generate a mega sena sequence', async function () {
 it('should match the fixed mega-sena sequence', async function () {
   expect.assertions(1)
 
-  const fixedSequence = [ 1, 24, 36, 40, 48, 56 ]
+  const fixedSequence = [ 5, 9, 17, 21, 29, 37 ]
   const payload = '[fixed payload data]'
 
   const sequence = await support.call(function (secret, payload) {
@@ -81,7 +81,7 @@ it('should generate a federal sequence', async function () {
 it('should match the fixed federal sequence', async function () {
   expect.assertions(1)
 
-  const fixedSequence = '37751'
+  const fixedSequence = '60084'
   const payload = '[fixed payload data]'
 
   const sequence = await support.call(function (secret, payload) {

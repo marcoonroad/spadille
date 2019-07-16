@@ -4,7 +4,7 @@
 
 const cuid = require('cuid')
 let support = require('../support')
-const SECRET = 'OH YES!'
+const SECRET = 'YAY!'
 
 beforeAll(support.setup)
 
@@ -50,9 +50,34 @@ it('should not enter in infinite loop while', async function () {
       return false
     }).catch(function (reason) {
       return reason.message ===
-        'The number of balls [amount] must be lower than the [maximum - minimum] number of RNG when [distinct] flag is on!'
+        'The number of balls [amount] must not be greater than the [maximum - minimum] number of RNG when [distinct] flag is on!'
     })
   }, SECRET, payload)
 
   expect(failed).toBe(true)
+})
+
+it('should pass if the interval is the same of amount when distinct enabled', async function () {
+  expect.assertions(1501)
+
+  const payload = cuid()
+
+  const sequence = await support.call(function (secret, payload) {
+    return this.prng.generate({
+      secret,
+      payload,
+      minimum: 100,
+      maximum: 600,
+      amount: 500,
+      distinct: true
+    })
+  }, SECRET, payload)
+
+  sequence.forEach(function (number) {
+    expect(number).toBeGreaterThanOrEqual(100)
+    expect(number).toBe(Number.parseInt(number))
+    expect(number).toBeLessThanOrEqual(600)
+  })
+
+  expect(sequence.length).toBe(500)
 })
