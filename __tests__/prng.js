@@ -50,7 +50,7 @@ it('should not enter in infinite loop while', async function () {
       return false
     }).catch(function (reason) {
       return reason.message ===
-        'The number of balls [amount] must not be greater than the [maximum - minimum] number of RNG when [distinct] flag is on!'
+        'The number of balls [amount] must not be greater than the [(maximum - minimum) + 1] number of RNG when [distinct] flag is on!'
     })
   }, SECRET, payload)
 
@@ -58,7 +58,7 @@ it('should not enter in infinite loop while', async function () {
 })
 
 it('should pass if the interval is the same of amount when distinct enabled', async function () {
-  expect.assertions(1501)
+  expect.assertions(151)
 
   const payload = cuid()
 
@@ -66,18 +66,41 @@ it('should pass if the interval is the same of amount when distinct enabled', as
     return this.prng.generate({
       secret,
       payload,
-      minimum: 100,
-      maximum: 600,
-      amount: 500,
+      minimum: 11,
+      maximum: 60,
+      amount: 50,
       distinct: true
     })
   }, SECRET, payload)
 
   sequence.forEach(function (number) {
-    expect(number).toBeGreaterThanOrEqual(100)
+    expect(number).toBeGreaterThanOrEqual(11)
     expect(number).toBe(Number.parseInt(number))
-    expect(number).toBeLessThanOrEqual(600)
+    expect(number).toBeLessThanOrEqual(60)
   })
 
-  expect(sequence.length).toBe(500)
+  expect(sequence.length).toBe(50)
+}, 35000)
+
+it('should shuffle a list', async function () {
+  expect.assertions(22)
+
+  const payload = cuid()
+
+  const inputSequence = [ 1, 2, 3, 4, 5, 6, 7 ]
+  const outputSequence = await support.call(function (secret, payload, inputSequence) {
+    return this.prng.permute({
+      secret,
+      payload,
+      inputSequence
+    })
+  }, SECRET, payload, inputSequence)
+
+  outputSequence.forEach(function (number) {
+    expect(number).toBeGreaterThanOrEqual(1)
+    expect(number).toBe(Number.parseInt(number))
+    expect(number).toBeLessThanOrEqual(7)
+  })
+
+  expect(outputSequence.length).toBe(7)
 })

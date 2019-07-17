@@ -28,9 +28,10 @@ const generate = async function (options) {
   amount = option(amount, 6);
   distinct = option(distinct, true);
 
-  if (distinct && amount > (maximum - minimum)) {
+  // interval is inclusive
+  if (distinct && amount > ((maximum - minimum) + 1)) {
     throw Error(
-      'The number of balls [amount] must not be greater than the [maximum - minimum] number of RNG when [distinct] flag is on!'
+      'The number of balls [amount] must not be greater than the [(maximum - minimum) + 1] number of RNG when [distinct] flag is on!'
     );
   }
 
@@ -64,4 +65,31 @@ const generate = async function (options) {
   return result;
 };
 
+const permute = async function (options) {
+  let {
+    secret,
+    payload,
+    inputSequence
+  } = options;
+
+  const ordering = await generate({
+    secret,
+    payload,
+    minimum: 0,
+    maximum: inputSequence.length - 1,
+    amount: inputSequence.length,
+    distinct: true,
+  });
+
+  const outputSequence = [];
+
+  for (let index = 0; index < inputSequence.length; index += 1) {
+    const position = ordering[index];
+    outputSequence[position] = inputSequence[index];
+  }
+
+  return outputSequence;
+};
+
 module.exports.generate = generate;
+module.exports.permute = permute;
