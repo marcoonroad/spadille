@@ -66,6 +66,26 @@ the limits of 32-bits integer representation). The number of elements are config
 parameter. The `minimum` and `maximum` are point parameters for an inclusive interval (closed on
 both sides). The `distinct` is a flag to compute the sequence of unique numbers (without repetitions).
 
+Given that we can generate arbitrary sequences, the random permutation algorithm becomes
+straightforward. This kind of permutation would just generate a random index sequence with
+minimum as `0`, maximum as `inputSequence.length - 1` and amount as `inputSequence.length`,
+where `inputSequence` is the list that we want to permute/shuffle. We then, in the end, use
+such random index sequence to map `inputSequence` entries into an output sequence indexed
+by such random index sequence. This wrapper function is implemented as an API below:
+
+```javascript
+const inputSequence = [ ... ] // an arbitrary list
+const outputSequence = await spadille.prng.permute({
+  secret, payload, inputSequence
+})
+/*
+ outputSequence is a random permutation of inputSequence
+ keep in mind that there are a still unlikely probability
+ of random collision where the inputSequence order could
+ be preserved for outputSequence, even if this is negligible
+*/
+```
+
 There's also a helper function provided to help you to generate fresh secrets.
 By using cryptograpically secure PRNGs for both Node (through `crypto` OpenSSL
 bindings) and browsers (through the `crypto` API), we ensure a good source of
