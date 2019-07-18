@@ -3,6 +3,7 @@
 Verifiable/deterministic fair tickets generation for lotteries, raffles and gambling games.
 
 [![Build Status](https://dev.azure.com/marcoonroad/marcoonroad/_apis/build/status/marcoonroad.spadille?branchName=master)](https://dev.azure.com/marcoonroad/marcoonroad/_build/latest?definitionId=2&branchName=master)
+[![Build Status](https://travis-ci.com/marcoonroad/spadille.svg?branch=master)](https://travis-ci.com/marcoonroad/spadille)
 
 ### About
 
