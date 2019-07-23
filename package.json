@@ -4,6 +4,7 @@
   "description": "Verifiable/deterministic fair tickets generation for lotteries, raffles and gambling games.",
   "main": "build/spadille/index.js",
   "browser": "dist/index.js",
+  "types": "types/spadille.d.ts",
   "scripts": {
     "build:back": "babel src -d build --minified --compact",
     "build": "yarn run build:back && yarn run build:front",

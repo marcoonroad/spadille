@@ -7,7 +7,7 @@ const support = require('../support')
 beforeAll(support.setup)
 
 it('should generate a random secret', async function () {
-  expect.assertions(22)
+  expect.assertions(44)
 
   const newSecret = function (length) {
     return support.call(function (length) {
@@ -18,5 +18,6 @@ it('should generate a random secret', async function () {
   for (let length = 4; length < 26; length += 1) {
     const secret = await newSecret(length)
     expect(secret.length).toBe(length)
+    expect(secret).toBe(secret.toString())
   }
 })
