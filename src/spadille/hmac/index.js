@@ -11,6 +11,7 @@ const {
 let hmac = null;
 
 (function () {
+  /* istanbul ignore next */
   if (isBrowser()) {
     hmac = require('./browser').init().hmac;
   } else if (isNode()) {
@@ -22,11 +23,13 @@ let hmac = null;
 
 const sign = hmac;
 
+/*
 const verify = async function (secret, signature, message) {
   const result = await hmac(secret, message);
 
   return signature === result;
 };
+*/
 
 module.exports.sign = sign;
-module.exports.verify = verify;
+// module.exports.verify = verify;

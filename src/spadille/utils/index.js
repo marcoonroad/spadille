@@ -66,6 +66,7 @@ const option = function (value, defaultValue) {
 };
 
 const sortOrder = function (x, y) {
+  /* istanbul ignore next */
   return x > y ? 1 : x < y ? -1 : 0;
 };
 

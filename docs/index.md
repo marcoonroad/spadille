@@ -4,6 +4,7 @@ Verifiable/deterministic fair tickets generation for lotteries, raffles and gamb
 
 [![Build Status](https://dev.azure.com/marcoonroad/marcoonroad/_apis/build/status/marcoonroad.spadille?branchName=master)](https://dev.azure.com/marcoonroad/marcoonroad/_build/latest?definitionId=2&branchName=master)
 [![Build Status](https://travis-ci.com/marcoonroad/spadille.svg?branch=master)](https://travis-ci.com/marcoonroad/spadille)
+[![Coverage Status](https://coveralls.io/repos/github/marcoonroad/spadille/badge.svg?branch=master)](https://coveralls.io/github/marcoonroad/spadille?branch=master)
 
 ### About
 

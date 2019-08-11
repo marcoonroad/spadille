@@ -6,7 +6,7 @@ node_js:
   - node
 
 script:
-  - yarn test
+  - yarn run report
 
 cache:
   yarn: true

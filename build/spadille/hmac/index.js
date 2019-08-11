@@ -1,2 +1,8 @@
 'use strict';/* eslint-env node *//* eslint
-  semi: off */function _asyncToGenerator(fn){return function(){var gen=fn.apply(this,arguments);return new Promise(function(resolve,reject){function step(key,arg){try{var info=gen[key](arg);var value=info.value}catch(error){reject(error);return}if(info.done){resolve(value)}else{return Promise.resolve(value).then(function(value){step('next',value)},function(err){step('throw',err)})}}return step('next')})}}var _require=require('../utils/environment');const isNode=_require.isNode,isBrowser=_require.isBrowser;let hmac=null;(function(){if(isBrowser()){hmac=require('./browser').init().hmac}else if(isNode()){hmac=require('./node').init().hmac}else{throw Error('Could not detect execution context!')}})();const sign=hmac;const verify=(()=>{var _ref=_asyncToGenerator(function*(secret,signature,message){const result=yield hmac(secret,message);return signature===result});return function verify(_x,_x2,_x3){return _ref.apply(this,arguments)}})();module.exports.sign=sign;module.exports.verify=verify;
+  semi: off */var _require=require('../utils/environment');const isNode=_require.isNode,isBrowser=_require.isBrowser;let hmac=null;(function(){/* istanbul ignore next */if(isBrowser()){hmac=require('./browser').init().hmac}else if(isNode()){hmac=require('./node').init().hmac}else{throw Error('Could not detect execution context!')}})();const sign=hmac;/*
+const verify = async function (secret, signature, message) {
+  const result = await hmac(secret, message);
+
+  return signature === result;
+};
+*/module.exports.sign=sign;// module.exports.verify = verify;

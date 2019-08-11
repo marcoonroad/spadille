@@ -11,6 +11,7 @@ const {
 let secret = null;
 
 (function () {
+  /* istanbul ignore next */
   if (isBrowser()) {
     secret = require('./browser').init().secret;
   } else if (isNode()) {
