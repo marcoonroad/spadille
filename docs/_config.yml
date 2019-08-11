@@ -1,0 +1,20 @@
+title: spadille
+description: "Verifiable/deterministic fair tickets generation for lotteries, raffles and gambling games."
+theme: jekyll-theme-dinky
+repository: marcoonroad/spadille
+show_downloads: false
+google_analytics: UA-41209773-2
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - CNAME
+  - vendor
+plugins:
+#- jekyll-feed
+#- jekyll-redirect-from
+#- jekyll-seo-tag
+#- jekyll-sitemap
+ - jekyll-avatar
+ - jemoji
+ - jekyll-mentions
+#- jekyll-include-cache

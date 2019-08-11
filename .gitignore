@@ -57,5 +57,10 @@ typings/
 # dotenv environment variables file
 .env
 
+# Jekyll files
+docs/.bundle/
+docs/vendor/
+docs/_site/
+
 # next.js build output
 .next
