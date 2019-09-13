@@ -28,6 +28,9 @@
     "type": "git",
     "url": "git+https://github.com/marcoonroad/spadille.git"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@marcoonroad"
+  },
   "keywords": [
     "gambling",
     "provably-fair",
