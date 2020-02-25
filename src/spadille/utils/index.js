@@ -27,8 +27,8 @@ const generatePiece = async function (hash, suffix) {
   const image = await hmac.sign(hash, suffix.toString());
   const subPieces = [];
 
-  for (let index = 0; index < 32; index += 1) {
-    subPieces.push(fromHex(image.substr(index * 16, 16)));
+  for (let index = 0; index < 64; index += 1) {
+    subPieces.push(fromHex(image.substr(index * 8, 8)));
   }
 
   return toHex(subPieces.reduce(intXor));

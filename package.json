@@ -1,6 +1,6 @@
 {
   "name": "spadille",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Verifiable/deterministic fair tickets generation for lotteries, raffles and gambling games.",
   "main": "build/spadille/index.js",
   "browser": "dist/index.js",
