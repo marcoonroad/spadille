@@ -2,7 +2,7 @@
 
 Verifiable/deterministic fair tickets generation for lotteries, raffles and gambling games.
 
-![Azure DevOps builds](https://img.shields.io/azure-devops/build/marcoonroad/207dab13-7b85-4ce0-a62d-9af3ea14f98d/2?label=azure%20devops&logo=azure-devops)
+[![Azure DevOps builds](https://img.shields.io/azure-devops/build/marcoonroad/207dab13-7b85-4ce0-a62d-9af3ea14f98d/2?label=azure%20devops&logo=azure-devops)](https://dev.azure.com/marcoonroad/marcoonroad/_build?definitionId=2&_a=summary)
 [![Build Status](https://travis-ci.com/marcoonroad/spadille.svg?branch=master)](https://travis-ci.com/marcoonroad/spadille)
 [![Coverage Status](https://coveralls.io/repos/github/marcoonroad/spadille/badge.svg?branch=master)](https://coveralls.io/github/marcoonroad/spadille?branch=master)
 
