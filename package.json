@@ -1,5 +1,5 @@
 {
-  "name": "spadille",
+  "name": "@marcoonroad/spadille",
   "version": "0.0.2",
   "description": "Verifiable/deterministic fair tickets generation for lotteries, raffles and gambling games.",
   "main": "build/spadille/index.js",
@@ -29,7 +29,7 @@
     "url": "git+https://github.com/marcoonroad/spadille.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@marcoonroad"
+    "registry": "https://npm.pkg.github.com/"
   },
   "keywords": [
     "gambling",
