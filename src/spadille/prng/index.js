@@ -10,18 +10,11 @@ const {
   makeRandomGen,
   option,
   splitInPieces,
-  computeNumber
+  computeNumber,
 } = require('../utils');
 
 const generate = async function (options) {
-  let {
-    secret,
-    payload,
-    minimum,
-    maximum,
-    amount,
-    distinct
-  } = options;
+  let { secret, payload, minimum, maximum, amount, distinct } = options;
 
   minimum = option(minimum, 1);
   maximum = option(maximum, 60);
@@ -29,9 +22,9 @@ const generate = async function (options) {
   distinct = option(distinct, true);
 
   // interval is inclusive
-  if (distinct && amount > ((maximum - minimum) + 1)) {
+  if (distinct && amount > maximum - minimum + 1) {
     throw Error(
-      'The number of balls [amount] must not be greater than the [(maximum - minimum) + 1] number of RNG when [distinct] flag is on!'
+      'The number of balls [amount] must not be greater than the [(maximum - minimum) + 1] number of RNG when [distinct] flag is on!',
     );
   }
 
@@ -49,8 +42,8 @@ const generate = async function (options) {
       const number = computeNumber(randomGen, data);
 
       // no detected duplicate
-      if (!cache[ number.toString() ]) {
-        cache[ number.toString() ] = true;
+      if (!cache[number.toString()]) {
+        cache[number.toString()] = true;
         index += 1;
         result.push(number);
       }
@@ -66,11 +59,7 @@ const generate = async function (options) {
 };
 
 const permute = async function (options) {
-  let {
-    secret,
-    payload,
-    inputSequence
-  } = options;
+  const { secret, payload, inputSequence } = options;
 
   const ordering = await generate({
     secret,
@@ -81,15 +70,41 @@ const permute = async function (options) {
     distinct: true,
   });
 
-  const outputSequence = [];
+  return ordering.map(index => inputSequence[index]);
+};
 
-  for (let index = 0; index < inputSequence.length; index += 1) {
-    const position = ordering[index];
-    outputSequence[position] = inputSequence[index];
-  }
+const pick = async function (options) {
+  const { secret, payload, sequence } = options;
+  const distinct = option(options.distinct, false);
+  const amount = option(options.amount, 1);
 
-  return outputSequence;
+  const indexes = await generate({
+    secret,
+    payload,
+    minimum: 0,
+    maximum: sequence.length - 1,
+    amount,
+    distinct,
+  });
+
+  return indexes.map(index => sequence[index]);
+};
+
+const rand = async function (secret, payload) {
+  const maximumInt = Math.pow(2, 31);
+
+  const [randomInt] = await generate({
+    secret,
+    payload,
+    minimum: 0,
+    maximum: maximumInt - 1,
+    amount: 1,
+  });
+
+  return randomInt / maximumInt;
 };
 
 module.exports.generate = generate;
 module.exports.permute = permute;
+module.exports.pick = pick;
+module.exports.rand = rand;

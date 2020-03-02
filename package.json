@@ -1,6 +1,6 @@
 {
   "name": "spadille",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Verifiable/deterministic fair tickets generation for lotteries, raffles and gambling games.",
   "main": "build/spadille/index.js",
   "browser": "dist/index.js",
@@ -80,7 +80,7 @@
     ],
     "parser": "babel-eslint"
   },
-  "homepage": "https://github.com/marcoonroad/spadille#readme",
+  "homepage": "https://spadille.marcoonroad.dev",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^10.0.2",
