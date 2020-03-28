@@ -2,7 +2,7 @@
 
 /* eslint
   semi: off */
-/* eslint-env browser */
+/* eslint-env node */
 
 module.exports.init = function () {
   const crypto = require('crypto');

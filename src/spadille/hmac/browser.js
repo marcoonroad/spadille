@@ -1,5 +1,3 @@
-/* istanbul ignore file */
-
 'use strict';
 
 /* eslint-env browser */

@@ -31,12 +31,16 @@ declare const spadille: {
     };
   };
   prng: {
-    generate: (options : PRNGOptions) => Promise<number[]>;
+    generate: (options: PRNGOptions) => Promise<number[]>;
     rand: (secret: string, payload: string) => Promise<number>;
     pick:<T>(options: PickOptions<T>) => Promise<T[]>;
     permute:<T>(options: PermutationOptions<T>) => Promise<T[]>;
   };
   secret: {
     generate: (bytes: number) => Promise<string>;
+  };
+  encoding: {
+    toBase64: (binary: string) => string;
+    fromBase64: (base64: string) => string;
   };
 };

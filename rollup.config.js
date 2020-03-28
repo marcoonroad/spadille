@@ -1,3 +1,5 @@
+'use strict'
+
 const commonjs = require('rollup-plugin-commonjs')
 const nodeResolve = require('rollup-plugin-node-resolve')
 const terser = require('rollup-plugin-terser').terser
@@ -21,8 +23,9 @@ module.exports = {
     builtins({ crypto: true }),
     globals(),
     nodeResolve({
-      module: true,
-      main: true,
+      // module: true,
+      // main: true,
+      mainFields: ['module', 'main'],
       browser: true
     }),
     commonjs({
