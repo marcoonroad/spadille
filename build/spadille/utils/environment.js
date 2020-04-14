@@ -1,6 +1,4 @@
-'use strict';/* eslint
-  no-new-func: off,
-  semi: off */const isBrowser=new Function(`
+'use strict';const isBrowser=new Function(`
   try {
     return (
       typeof window !== 'undefined' &&
@@ -13,8 +11,7 @@
   } catch (_) {
     return false;
   }
-`);// TODO: rethink that better later
-const isNode=new Function(`
+`);const isNode=new Function(`
   try {
     return (
       typeof window === 'undefined' ||

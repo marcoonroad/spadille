@@ -6,7 +6,7 @@
   "browser": "dist/index.js",
   "types": "types/spadille.d.ts",
   "scripts": {
-    "build:back": "babel src -d build --minified --compact",
+    "build:back": "babel src -d build --minified --no-comments --compact",
     "build": "yarn run build:back && yarn run build:front",
     "build:front": "rollup -c --environment INCLUDE_DEPS,BUILD:production",
     "lint": "standard --verbose",
