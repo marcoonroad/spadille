@@ -31,15 +31,32 @@ if (process.env.BROWSER_ENV) {
       ${script}
       const block = (${closure.toString()});
       return block.bind(spadille)(...arguments)
+        .then(function (result) {
+          return {
+            status: 'RESOLVED',
+            value: result
+          };
+        })
         .catch(function (reason) {
-          throw reason.message;
+          return {
+            status: 'REJECTED',
+            message: reason.message,
+          };
         });
     `)
 
     try {
-      return await page.evaluate(modifiedClosure, ...values)
+      const result = await page.evaluate(modifiedClosure, ...values)
+      if (result.status === 'REJECTED') {
+        throw result
+      }
+      return result.value
     } catch (reason) {
-      throw Error(reason)
+      throw Error(
+        reason.message
+          .replace(/Evaluation failed: /, '')
+          .replace(/Error: /, '')
+      )
     }
   }
 } else {

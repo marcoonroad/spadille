@@ -63,3 +63,19 @@ it('should base-64 convert back and forth the secret', async function () {
   ).toBe(base64)
   await expect(decode(base64)).resolves.toBe(secret)
 })
+
+it('should fail to encode/decode invalid base64 data', async function () {
+  expect.assertions(3)
+
+  await expect(decode('*&@%@#$%')).rejects.toMatchObject({
+    message: 'Failed to decode base-64 data into binary!'
+  })
+
+  await expect(encode('')).rejects.toMatchObject({
+    message: 'Failed to encode binary data as base-64!'
+  })
+
+  await expect(decode('')).rejects.toMatchObject({
+    message: 'Failed to decode base-64 data into binary!'
+  })
+})

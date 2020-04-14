@@ -14,28 +14,34 @@ const wrapErrors = function (encoding) {
   const result = {};
 
   result.toBase64 = function (binary) {
+    /* istanbul ignore next */
     try {
+      if (!binary) {
+        throw Error('< error ignored >')
+      }
       const payload = encoding.toBase64(binary);
       if (payload) {
         return payload
       }
       throw Error('< error ignored >');
-    } catch (reason) {
-      throw reason;
-      // throw Error('Failed to encode binary data as base-64!');
+    } catch (_reason) {
+      throw Error('Failed to encode binary data as base-64!');
     }
   };
 
   result.fromBase64 = function (payload) {
+    /* istanbul ignore next */
     try {
+      if (!payload) {
+        throw Error('< error ignored >')
+      }
       const binary = encoding.fromBase64(payload);
       if (binary) {
         return binary;
       }
       throw Error('< error ignored >');
-    } catch (reason) {
-      throw reason;
-      // throw Error('Failed to decode base-64 data into binary!');
+    } catch (_reason) {
+      throw Error('Failed to decode base-64 data into binary!');
     }
   };
 
