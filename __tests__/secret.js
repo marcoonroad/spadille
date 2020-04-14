@@ -12,12 +12,12 @@ const newSecret = function (length) {
   }, length)
 }
 
-const toBase64 = function (binary) {
+const encode = function (binary) {
   return support.call(function (binary) {
     const sporadic = this
     return new Promise(function (resolve, reject) {
       try {
-        resolve(sporadic.encoding.toBase64(binary))
+        resolve(sporadic.base64.encode(binary))
       } catch (reason) {
         reject(reason)
       }
@@ -25,17 +25,17 @@ const toBase64 = function (binary) {
   }, binary)
 }
 
-const fromBase64 = function (base64) {
-  return support.call(function (base64) {
+const decode = function (data) {
+  return support.call(function (data) {
     const sporadic = this
     return new Promise(function (resolve, reject) {
       try {
-        resolve(sporadic.encoding.fromBase64(base64))
+        resolve(sporadic.base64.decode(data))
       } catch (reason) {
         reject(reason)
       }
     })
-  }, base64)
+  }, data)
 }
 
 it('should generate a random secret', async function () {
@@ -52,7 +52,7 @@ it('should base-64 convert back and forth the secret', async function () {
   expect.assertions(3)
 
   const secret = await newSecret(16)
-  const base64 = await toBase64(secret)
+  const base64 = await encode(secret)
 
   expect(Buffer.from(secret, 'utf-8').toString('base64')).toBe(base64)
   expect(
@@ -61,5 +61,5 @@ it('should base-64 convert back and forth the secret', async function () {
       'ascii'
     ).toString('base64')
   ).toBe(base64)
-  await expect(fromBase64(base64)).resolves.toBe(secret)
+  await expect(decode(base64)).resolves.toBe(secret)
 })

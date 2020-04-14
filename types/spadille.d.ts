@@ -39,8 +39,8 @@ declare const spadille: {
   secret: {
     generate: (bytes: number) => Promise<string>;
   };
-  encoding: {
-    toBase64: (binary: string) => string;
-    fromBase64: (base64: string) => string;
+  base64: {
+    encode: (binary: string) => string;
+    decode: (data: string) => string;
   };
 };

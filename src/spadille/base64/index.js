@@ -54,5 +54,5 @@ const wrapErrors = function (encoding) {
 })();
 
 encoding = wrapErrors(encoding)
-module.exports.toBase64 = encoding.toBase64;
-module.exports.fromBase64 = encoding.fromBase64;
+module.exports.encode = encoding.toBase64;
+module.exports.decode = encoding.fromBase64;
