@@ -14,10 +14,10 @@ const newSecret = function (length) {
 
 const encode = function (binary) {
   return support.call(function (binary) {
-    const sporadic = this
+    const spadille = this
     return new Promise(function (resolve, reject) {
       try {
-        resolve(sporadic.base64.encode(binary))
+        resolve(spadille.base64.encode(binary))
       } catch (reason) {
         reject(reason)
       }
@@ -27,10 +27,10 @@ const encode = function (binary) {
 
 const decode = function (data) {
   return support.call(function (data) {
-    const sporadic = this
+    const spadille = this
     return new Promise(function (resolve, reject) {
       try {
-        resolve(sporadic.base64.decode(data))
+        resolve(spadille.base64.decode(data))
       } catch (reason) {
         reject(reason)
       }
