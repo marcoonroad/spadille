@@ -102,7 +102,14 @@ original sequence. This wrapper function is called `pick` and the contract/typin
 follows:
 
 ```javascript
-const classes = ['warrior', 'rogue', 'mage', 'priest', 'hunter', 'alchemist'];
+const classes = [
+  'warrior',
+  'rogue',
+  'mage',
+  'priest',
+  'hunter',
+  'alchemist'
+];
 const partyClasses = await spadille.prng.pick({
   secret,
   payload,
@@ -122,7 +129,11 @@ sequence, but the output/result is still a list, thus, you will likely use the
 following pattern in such cases:
 
 ```javascript
-const [randomElement] = await spadille.prng.pick({secret, payload, sequence});
+const [randomElement] = await spadille.prng.pick({
+  secret,
+  payload,
+  sequence
+});
 ```
 
 Note that `pick` will yield the same behavior of `permute` if you pass the same
