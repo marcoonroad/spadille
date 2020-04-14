@@ -147,55 +147,32 @@ const noiseSecret = await spadille.secret.generate(amountOfBytes);
 Remember that once you generate such secret, you should store it somewhere
 to retrieve later to "sign" the random sequences. And in the end, you should
 also publish such secret in a commitment/opening style for public verification
-by your users/clients.
-
-Future plans include a `secret.generateBase64(amountOfBytes)` function to automatically
-wrap the secret under Base64 format. By now, you will need to wrap using either
-`btoa()` (browsers only) or `Buffer.from()` (Node.js only):
+by your users/clients. To send/receive such secret while using HTTPS requests, for
+instance, you can use the browser-and-Node cross-compatible Base64 encoding provided
+here too:
 
 ```javascript
-// browsers only
-const base64Secret = btoa(noiseSecret);
+// on server-side
+// ...
+const base64Secret = spadille.base64.encode(secret);
+response.json({ base64Secret });
+// ...
+
+// on client-side
+// ...
+const response = await axios.get(endpoint, { headers });
+const secret = spadille.base64.decode(response.data.base64Secret);
+// the <secret> variable is ready to be used for
+// raffle/promotion verification on client-side here
+// ...
 ```
 
-```javascript
-// Node.js only
-const base64Secret = Buffer.from(noiseSecret).toString('base64');
-```
+This helper Base64 submodule ensures that Node.js can encode a binary-content secret
+valid to be decoded on browsers and vice-versa. If now you are somehow confuse by this
+amount of functions/APIs described here, don't worry, there's a TypeScript typings
+file available in this library for easy IDE/Editor integration (such as
+auto-complete and parameters signature).
 
-Future plans also include to automatically detect a Base64 string while generating and
-verifying randomly generated values (to maintain backwards compatibility), nevertheless,
-by now you'll also need to unwrap Base64 strings manually before passing them on this
-library API:
-
-```javascript
-// browsers only
-const secret = atob(base64Secret);
-```
-
-```javascript
-// Node.js only
-const secret = Buffer.from(base64Secret, 'base64').toString();
-```
-
-You can nevertheless create your own secrets by hand or through some other mechanism.
-I don't recommend that if you want automated processes and stuff. This secret generation
-uses the well-tested random bytes generation functions from browser vendors and Node.js.
-If you stick on that manual approach by your own risk, ensure that:
-
-- The secret contains high-quality entropy, using all available keyboard characters,
-  even special ones such as `*&@#!:~><_(%$)[]{^}?`, everything as printable
-  ASCII characters.
-- The secret is a long enough string that make guessing impossible (I recommend above
-  48 characters if you use all available printable ones, even the special characters).
-- The secret don't parses itself as Base64, that is, use the special characters above
-  to ensure that your secret is not a Base64 one, for instance, by appending them as
-  suffix when you generate custom secrets as random long numbers. Note that suffix
-  appending doesn't reduce the 48 characters security advise said above, you still
-  need to generate such amount of entropy and ensure its quality.
-
-If your custom generated secret fit such cases above, you can pass them on this library
-API without no worries of broken backwards compatibility in the future.
 
 ### Remarks
 
