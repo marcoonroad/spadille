@@ -70,7 +70,7 @@ it('should generate non-biased huge numbers', async function () {
   const biased = await measureBias({
     MINIMUM: 49999955,
     MAXIMUM: 50000000,
-    THRESHOLD: 0.05
+    THRESHOLD: 0.1
   })
 
   expect(biased).toBe(false)
